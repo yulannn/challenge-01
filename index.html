@@ -1,0 +1,41 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+<body>
+    <div class="content">
+        <h2>Information sur la promotion</h2>
+        <br>
+        <ul>
+            <li> <strong>Nom :</strong> {{.Data.Nom}}</li>
+            <li> <strong>Filière :</strong> {{.Data.Filiere}}</li>
+            <li> <strong>Niveau :</strong> {{.Data.Niveau}}</li>
+            <li> <strong>Nombre d'étudiants :</strong> {{.Data.NbEtudiant}}</li>
+        </ul>
+        <br>
+        <h2>Liste des étudiants</h2>
+        <br>
+    </div>
+        <div>
+            <ul class="user-list">
+                {{range .Profil.Users}}
+                    <li>
+                        <div class="user-info">
+                            <span>{{.FirstName}} {{.LastName}}</span>
+                            <span>{{.Age}}</span>
+                            <!-- Mettre un autre span avec l'icon conditions homme / femme en go-->
+                        </div>
+                        <box-icon class="icon" name='male-sign'></box-icon>
+                    </li>
+                {{end}}
+            </ul>
+        </div> 
+</body>
+</html>
+{{end}}
