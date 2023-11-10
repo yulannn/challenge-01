@@ -29,9 +29,12 @@
                         <div class="user-info">
                             <span>{{.FirstName}} {{.LastName}}</span>
                             <span>{{.Age}}</span>
-                            <!-- Mettre un autre span avec l'icon conditions homme / femme en go-->
                         </div>
-                        <box-icon class="icon" name='male-sign'></box-icon>
+                        {{if eq .Sexe "male"}}
+                            <box-icon class="icon" name='male-sign'></box-icon>
+                        {{else}}
+                            <box-icon class="icon" name='female-sign'></box-icon>
+                        {{end}}
                     </li>
                 {{end}}
             </ul>
