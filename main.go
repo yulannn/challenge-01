@@ -29,9 +29,16 @@ type Profil struct {
 type PageData struct {
     Data   Data
     Profil Profil
-	/* Message string
-	   ViewCount int */
 }
+
+type DataFormUser struct{
+	Nom string
+	Prenom string
+	Date string
+	Sexe string
+}
+
+var DataForm DataFormUser = DataFormUser{}
 
 func main() {
 
@@ -63,15 +70,21 @@ func main() {
 			Profil: profil,
 		}
 
-		/*if pageData.ViewCount%2 == 0 {
-			pageData.Message = "Le nombre de vues est pair."
-		} else {
-			pageData.Message = "Le nombre de vues est impair."
-		} */
 
 	
 		temp.ExecuteTemplate(w, "index", pageData)
 	})
+
+	http.HandleFunc("/user", func(w http.ResponseWriter, r *http.Request) {
+		temp.ExecuteTemplate(w, "form", nil)
+	})
+
+	http.HandleFunc("/user/data", func(w http.ResponseWriter, r *http.Request) {
+		DataForm = DataFormUser{r.FormValue("Nom"),r.FormValue("Prenom"),r.FormValue("DateDeNaissance"),r.FormValue("Sexe")}
+		fmt.Println(DataForm)
+		http.Redirect(w,r,"/user/display",301)
+	})
+		
 
     fmt.Println("Serveur écoutant sur le port 8080")
 
