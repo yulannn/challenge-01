@@ -34,7 +34,7 @@ type PageData struct {
 type DataFormUser struct{
 	Nom string
 	Prenom string
-	Date string
+	DateDeNaissance string
 	Sexe string
 }
 
@@ -80,11 +80,20 @@ func main() {
 	})
 
 	http.HandleFunc("/user/data", func(w http.ResponseWriter, r *http.Request) {
-		DataForm = DataFormUser{r.FormValue("Nom"),r.FormValue("Prenom"),r.FormValue("DateDeNaissance"),r.FormValue("Sexe")}
-		fmt.Println(DataForm)
+		DataForm = DataFormUser{
+			Nom:            r.FormValue("Nom"),
+			Prenom:         r.FormValue("Prenom"),
+			DateDeNaissance: r.FormValue("DateDeNaissance"),
+			Sexe:           r.FormValue("Sexe"),
+		}
 		http.Redirect(w,r,"/user/display",301)
 	})
 		
+	http.HandleFunc("/user/display", func(w http.ResponseWriter, r *http.Request) {
+		temp.ExecuteTemplate(w, "display", DataForm)
+	})
+	
+
 
     fmt.Println("Serveur écoutant sur le port 8080")
 
